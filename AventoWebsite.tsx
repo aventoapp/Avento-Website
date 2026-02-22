@@ -560,23 +560,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-1">Email</h4>
-                    <p className="text-gray-600">hello@avento.app</p>
-                    <p className="text-gray-600">support@avento.app</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-3xl p-8 shadow-xl">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800 mb-1">Office</h4>
-                    <p className="text-gray-600">
-                      Koramangala, Bangalore<br />
-                      Karnataka 560034, India
-                    </p>
+                    <p className="text-gray-600">avento.events963@gmail.com</p>
                   </div>
                 </div>
               </div>
