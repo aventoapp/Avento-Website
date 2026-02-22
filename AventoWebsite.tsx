@@ -85,7 +85,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
               <button onClick={() => scrollToSection('faq')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">FAQ</button>
               <button onClick={() => scrollToSection('about')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">About</button>
               <button onClick={() => scrollToSection('contact')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">Contact</button>
-              <button className="px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/50 transition-all">
+              <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/50 transition-all">
                 Download App
               </button>
             </nav>
@@ -106,7 +106,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <button onClick={() => scrollToSection('faq')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">FAQ</button>
                 <button onClick={() => scrollToSection('about')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">About</button>
                 <button onClick={() => scrollToSection('contact')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">Contact</button>
-                <button className="text-left px-4 py-2 text-sm text-purple-600 font-semibold hover:bg-purple-50 rounded-lg transition-colors">Download App</button>
+                <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="text-left px-4 py-2 text-sm text-purple-600 font-semibold hover:bg-purple-50 rounded-lg transition-colors">Download App</button>
               </nav>
             </div>
           )}
@@ -753,7 +753,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             Join thousands of users creating unforgettable memories with Avento.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="group px-10 py-5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2">
+            <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="group px-10 py-5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2">
               Download Now
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
