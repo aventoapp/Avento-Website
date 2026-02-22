@@ -732,8 +732,8 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <h3 className="text-xl font-bold text-gray-800 mb-3">7. Contact Us</h3>
                 <p className="text-gray-700 leading-relaxed">
                   For questions about these Terms of Service, contact us at{' '}
-                  <a href="mailto:legal@avento.app" className="text-purple-600 hover:text-purple-700 font-semibold">
-                    legal@avento.app
+                  <a href="mailto:avento.events963@gmail.com" className="text-purple-600 hover:text-purple-700 font-semibold">
+                    avento.events963@gmail.com
                   </a>
                 </p>
               </div>
