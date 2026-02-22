@@ -440,7 +440,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </h2>
             <p className="text-xl text-purple-100 max-w-3xl mx-auto leading-relaxed">
               We're on a mission to transform how people celebrate and share life's special moments. 
-              Founded in 2024, Avento brings together cutting-edge technology and thoughtful design 
+              Founded in 2026, Avento brings together cutting-edge technology and thoughtful design 
               to create the ultimate event management experience.
             </p>
           </div>
@@ -778,7 +778,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 Where Events Come Alive
               </p>
               <p className="text-xs text-gray-500">
-                Making every celebration memorable since 2024.
+                Making every celebration memorable since 2026.
               </p>
             </div>
 
