@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, ArrowRight, Share2, Users, Camera, Sparkles, Heart, Calendar, MessageCircle, Check, ChevronDown, Mail, MapPin, Phone, Briefcase, Shield, FileText, Send } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Share2, Users, Camera, Sparkles, Heart, Calendar, MessageCircle, Check, ChevronDown, Mail, MapPin, Phone, Briefcase, Shield, FileText, Send, Menu, X } from 'lucide-react';
 
 interface AventoWebsiteProps {
   onBack?: () => void;
@@ -7,12 +7,14 @@ interface AventoWebsiteProps {
 
 export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
+    setMobileMenuOpen(false);
   };
 
   const faqs = [
@@ -89,10 +91,25 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </nav>
 
             {/* Mobile Menu Button */}
-            <button className="lg:hidden px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm">
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="lg:hidden px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm flex items-center gap-2">
+              {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
               Menu
             </button>
           </div>
+
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="lg:hidden mt-4 py-4 border-t border-purple-100">
+              <nav className="flex flex-col gap-3">
+                <button onClick={() => scrollToSection('features')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">Features</button>
+                <button onClick={() => scrollToSection('pricing')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">Pricing</button>
+                <button onClick={() => scrollToSection('faq')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">FAQ</button>
+                <button onClick={() => scrollToSection('about')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">About</button>
+                <button onClick={() => scrollToSection('contact')} className="text-left px-4 py-2 text-sm text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-lg transition-colors">Contact</button>
+                <button className="text-left px-4 py-2 text-sm text-purple-600 font-semibold hover:bg-purple-50 rounded-lg transition-colors">Download App</button>
+              </nav>
+            </div>
+          )}
         </div>
       </header>
 

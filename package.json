@@ -1,9 +1,12 @@
 {
   "name": "avento-website",
   "version": "1.0.0",
+  "homepage": "https://aventoapp.github.io/Avento-Website",
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "lucide-react": "^0.263.1",
