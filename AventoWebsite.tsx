@@ -8,6 +8,8 @@ interface AventoWebsiteProps {
 export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formStatus, setFormStatus] = useState('');
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -516,12 +518,14 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             {/* Contact Form */}
             <div className="bg-white rounded-3xl p-8 shadow-xl">
               <h3 className="text-2xl font-bold text-gray-800 mb-6">Send us a message</h3>
-              <form className="space-y-6">
+              <form action="https://formspree.io/f/xpqjkory" method="POST" className="space-y-6">
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Name</label>
                   <input
                     type="text"
+                    name="name"
                     placeholder="Your name"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-600/20 outline-none transition-all"
                   />
                 </div>
@@ -529,15 +533,19 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
                   <input
                     type="email"
+                    name="email"
                     placeholder="your@email.com"
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-600/20 outline-none transition-all"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
                   <textarea
+                    name="message"
                     rows={5}
                     placeholder="Tell us how we can help..."
+                    required
                     className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-purple-600 focus:ring-2 focus:ring-purple-600/20 outline-none transition-all resize-none"
                   ></textarea>
                 </div>
