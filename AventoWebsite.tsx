@@ -273,109 +273,83 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {/* Free Plan */}
             <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Free</h3>
-                <div className="mb-4">
+                <div className="mb-2">
                   <span className="text-5xl font-bold text-gray-900">₹0</span>
                 </div>
-                <p className="text-sm text-gray-600">Perfect for getting started</p>
+                <p className="text-sm text-gray-500">1 GB · ~1,000 photos</p>
               </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Up to 1,000 photos</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Unlimited events</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Unlimited groups</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">AI photo filtering</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Basic support</span>
-                </li>
+              <ul className="space-y-3 mb-8">
+                {["1GB High-quality storage", "Basic photo filters", "Group photo sharing", "Standard support"].map(f => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{f}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Monthly Plan - Popular */}
-            <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 border-2 border-purple-600 shadow-2xl shadow-purple-500/50 transform scale-105">
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold">
+            {/* Starter Plan */}
+            <div className="bg-white rounded-3xl p-8 border-2 border-blue-200 hover:shadow-xl transition-all">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Starter</h3>
+                <div className="mb-2">
+                  <span className="text-5xl font-bold text-blue-600">₹199</span>
+                </div>
+                <p className="text-sm text-gray-500">2 GB · ~2,000 photos</p>
+              </div>
+              <ul className="space-y-3 mb-8">
+                {["2GB Total storage", "AI-powered photo filtering", "Priority upload speed"].map(f => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Popular Plan */}
+            <div className="relative bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 border-2 border-purple-600 shadow-2xl shadow-purple-500/50">
+              <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold whitespace-nowrap">
                 Most Popular
               </div>
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-white mb-2">Plan 1</h3>
-                <div className="mb-4">
-                  <span className="text-5xl font-bold text-white">₹99</span>
+                <h3 className="text-2xl font-bold text-white mb-2">Popular</h3>
+                <div className="mb-2">
+                  <span className="text-5xl font-bold text-white">₹499</span>
                 </div>
-                <p className="text-sm text-purple-200">For active event planners</p>
+                <p className="text-sm text-purple-200">5 GB · ~5,000 photos</p>
               </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Up to 5,000 photos</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Everything in Free</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Priority support</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Advanced analytics</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
-                  <span className="text-white">Custom event themes</span>
-                </li>
+              <ul className="space-y-3 mb-8">
+                {["5GB Total storage", "Advanced AI recognition", "Highest upload priority", "No advertisements"].map(f => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
+                    <span className="text-white text-sm">{f}</span>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Yearly Plan */}
+            {/* Pro Plan */}
             <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all">
               <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Plan 2</h3>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Pro</h3>
                 <div className="mb-2">
                   <span className="text-5xl font-bold text-gray-900">₹999</span>
                 </div>
-                <div className="inline-block px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold mb-2">
-                  Save 16%
-                </div>
-                <p className="text-sm text-gray-600">Best value for power users</p>
+                <p className="text-sm text-gray-500">10 GB · ~10,000 photos</p>
               </div>
-              <ul className="space-y-4 mb-8">
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Up to 80,000 photos</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Everything in Monthly</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">24/7 premium support</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Early access to features</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-700">Custom branding</span>
-                </li>
+              <ul className="space-y-3 mb-8">
+                {["10GB Massive storage", "All Popular features", "Lifetime memory backup", "No advertisements"].map(f => (
+                  <li key={f} className="flex items-start gap-3">
+                    <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                    <span className="text-gray-700 text-sm">{f}</span>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -568,7 +542,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-800 mb-1">Email</h4>
-                    <p className="text-gray-600">avento.events963@gmail.com</p>
+                    <p className="text-gray-600">support@avento.in</p>
                   </div>
                 </div>
               </div>
@@ -649,8 +623,8 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <h3 className="text-xl font-bold text-gray-800 mb-3">5. Contact Us</h3>
                 <p className="text-gray-700 leading-relaxed">
                   If you have questions about this Privacy Policy, please contact us at{' '}
-                  <a href="mailto:avento.events963@gmail.com" className="text-purple-600 hover:text-purple-700 font-semibold">
-                    avento.events963@gmail.com
+                  <a href="mailto:support@avento.in" className="text-purple-600 hover:text-purple-700 font-semibold">
+                    support@avento.in
                   </a>
                 </p>
               </div>
@@ -740,8 +714,8 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <h3 className="text-xl font-bold text-gray-800 mb-3">7. Contact Us</h3>
                 <p className="text-gray-700 leading-relaxed">
                   For questions about these Terms of Service, contact us at{' '}
-                  <a href="mailto:avento.events963@gmail.com" className="text-purple-600 hover:text-purple-700 font-semibold">
-                    avento.events963@gmail.com
+                  <a href="mailto:support@avento.in" className="text-purple-600 hover:text-purple-700 font-semibold">
+                    support@avento.in
                   </a>
                 </p>
               </div>
