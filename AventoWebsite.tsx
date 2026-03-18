@@ -24,10 +24,10 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       question: "What is Avento?",
       answer: "Avento is a comprehensive event management and photo sharing platform that helps you create, manage, and celebrate events with friends and family. From birthday parties to group gatherings, Avento makes every event memorable."
     },
-    {
-      question: "How does AI photo filtering work?",
-      answer: "Our AI technology automatically organizes photos by detecting faces and grouping them by person. This makes it incredibly easy to find photos of specific people at your events without manual tagging."
-    },
+    // {
+    //   question: "How does AI photo filtering work?",
+    //   answer: "Our AI technology automatically organizes photos by detecting faces and grouping them by person. This makes it incredibly easy to find photos of specific people at your events without manual tagging."
+    // },
     {
       question: "Is my data secure?",
       answer: "Absolutely! We use bank-level encryption to protect your photos and personal information. Your data is stored securely and we never share it with third parties without your explicit consent."
@@ -134,7 +134,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
           </h1>
           
           <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
-            Create unforgettable memories with seamless event management, AI-powered photo sharing, 
+            Create unforgettable memories with seamless event management, photo sharing, 
             and collaborative celebrations.
           </p>
           
@@ -207,9 +207,9 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Camera className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">AI-Powered Photo Galleries</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Photo Galleries</h3>
               <p className="text-gray-600">
-                Let AI organize photos by faces automatically. Find your memories in seconds.
+                Let us organize photos. Find your memories in seconds.
               </p>
             </div>
 
@@ -284,7 +284,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-gray-500">1 GB · ~1,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["1GB High-quality storage", "Basic photo filters", "Group photo sharing", "Standard support"].map(f => (
+                {["1GB High-quality storage", "Group photo sharing", "Standard support"].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 text-sm">{f}</span>
@@ -303,7 +303,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-gray-500">2 GB · ~2,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["2GB Total storage", "AI-powered photo filtering", "Priority upload speed"].map(f => (
+                {["2GB Total storage", "Priority upload speed"].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 text-sm">{f}</span>
@@ -325,7 +325,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-purple-200">5 GB · ~5,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["5GB Total storage", "Advanced AI recognition", "Highest upload priority", "No advertisements"].map(f => (
+                {["5GB Total storage","Highest upload priority", "No advertisements"].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
                     <span className="text-white text-sm">{f}</span>
@@ -592,7 +592,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <h3 className="text-xl font-bold text-gray-800 mb-3">2. How We Use Your Information</h3>
                 <ul className="list-disc pl-6 space-y-2 text-gray-700">
                   <li>To provide and improve our services</li>
-                  <li>To organize and display your photos using AI technology</li>
+                  {/* <li>To organize and display your photos using AI technology</li> */}
                   <li>To facilitate communication between group members</li>
                   <li>To process payments and contributions</li>
                   <li>To send notifications about events and activities</li>
