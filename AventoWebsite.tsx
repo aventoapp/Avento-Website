@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, ArrowRight, Share2, Users, Camera, Sparkles, Heart, Calendar, MessageCircle, Check, ChevronDown, Mail, MapPin, Phone, Briefcase, Shield, FileText, Send, Menu, X } from 'lucide-react';
 
 interface AventoWebsiteProps {
@@ -10,6 +10,17 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [formStatus, setFormStatus] = useState('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); }
+      }),
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -57,7 +68,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-purple-50 font-['Poppins',sans-serif]">
       {/* Header with Navigation */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-purple-100">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white/10 backdrop-blur-2xl border-b border-white/20 shadow-lg shadow-black/5" style={{background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 100%)', backdropFilter: 'blur(24px) saturate(180%)'}}>
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -82,11 +93,11 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
-              <button onClick={() => scrollToSection('features')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">Features</button>
-              <button onClick={() => scrollToSection('pricing')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">Pricing</button>
-              <button onClick={() => scrollToSection('faq')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">FAQ</button>
-              <button onClick={() => scrollToSection('about')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">About</button>
-              <button onClick={() => scrollToSection('contact')} className="text-sm text-gray-600 hover:text-purple-600 transition-colors">Contact</button>
+              <button onClick={() => scrollToSection('features')} className="text-sm text-gray-700 hover:text-purple-600 font-medium transition-colors">Features</button>
+              <button onClick={() => scrollToSection('pricing')} className="text-sm text-gray-700 hover:text-purple-600 font-medium transition-colors">Pricing</button>
+              <button onClick={() => scrollToSection('faq')} className="text-sm text-gray-700 hover:text-purple-600 font-medium transition-colors">FAQ</button>
+              <button onClick={() => scrollToSection('about')} className="text-sm text-gray-700 hover:text-purple-600 font-medium transition-colors">About</button>
+              <button onClick={() => scrollToSection('contact')} className="text-sm text-gray-700 hover:text-purple-600 font-medium transition-colors">Contact</button>
               <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="px-6 py-2.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-medium text-sm hover:shadow-lg hover:shadow-purple-500/50 transition-all">
                 Download App
               </button>
@@ -118,12 +129,12 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-100 text-purple-700 text-sm font-medium mb-6 hero-badge">
             <Sparkles className="w-4 h-4" />
             Event Management Reimagined
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight hero-title">
             <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-purple-700 bg-clip-text text-transparent">
               Where Events
             </span>
@@ -133,20 +144,20 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </span>
           </h1>
           
-          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 mb-10 max-w-2xl mx-auto hero-sub">
             Create unforgettable memories with seamless event management, photo sharing, 
             and collaborative celebrations.
           </p>
           
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <button onClick={() => scrollToSection('features')} className="group px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 hero-cta">
+            <button onClick={() => scrollToSection('features')} className="group px-8 py-4 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 press">
               Get Started
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
 
           {/* Hero Image - Mock Phone Screenshot */}
-          <div className="relative max-w-sm mx-auto">
+          <div className="relative max-w-sm mx-auto hero-phone">
             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl border-8 border-gray-800 bg-gradient-to-br from-indigo-500 via-purple-500 to-purple-600 p-8">
               <div className="bg-white rounded-[2rem] overflow-hidden shadow-inner">
                 {/* Mock App Interface */}
@@ -180,7 +191,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* Features Section */}
       <section id="features" className="py-20 px-6 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Everything You Need for
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Perfect Events</span>
@@ -190,9 +201,9 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 stagger">
             {/* Feature 1 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Calendar className="w-7 h-7 text-white" />
               </div>
@@ -203,18 +214,18 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Feature 2 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-pink-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Camera className="w-7 h-7 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-3">Photo Galleries</h3>
+              <h3 className="text-xl font-bold text-gray-800 mb-3">Photo & Video Galleries</h3>
               <p className="text-gray-600">
-                Let us organize photos. Find your memories in seconds.
+                Upload photos and videos in standard or original quality. Let AI organize your memories so you find them in seconds.
               </p>
             </div>
 
             {/* Feature 3 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-blue-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-blue-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Users className="w-7 h-7 text-white" />
               </div>
@@ -225,7 +236,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Feature 4 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-pink-50 to-purple-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-pink-50 to-purple-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Share2 className="w-7 h-7 text-white" />
               </div>
@@ -236,7 +247,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Feature 5 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-purple-50 to-indigo-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <MessageCircle className="w-7 h-7 text-white" />
               </div>
@@ -247,7 +258,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Feature 6 */}
-            <div className="group p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-purple-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100">
+            <div className="group p-8 rounded-3xl bg-gradient-to-br from-indigo-50 to-purple-50 hover:shadow-xl hover:shadow-purple-500/20 transition-all border border-purple-100 reveal hover:-translate-y-1">
               <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                 <Heart className="w-7 h-7 text-white" />
               </div>
@@ -263,7 +274,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* Pricing Section */}
       <section id="pricing" className="py-20 px-6 bg-gradient-to-br from-purple-50 to-indigo-50 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Simple, Transparent
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Pricing</span>
@@ -273,15 +284,15 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto stagger">
             {/* Free Plan */}
-            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all">
+            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all reveal hover:-translate-y-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Free</h3>
                 <div className="mb-2">
                   <span className="text-5xl font-bold text-gray-900">₹0</span>
                 </div>
-                <p className="text-sm text-gray-500">1 GB · ~1,000 photos</p>
+                <p className="text-sm text-gray-500">2 GB · ~2,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
                 {["1GB High-quality storage", "Group photo sharing", "Standard support"].map(f => (
@@ -291,10 +302,11 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                   </li>
                 ))}
               </ul>
+              <p className="text-xs text-gray-400 text-center">No video upload · No AI sorting</p>
             </div>
 
             {/* Starter Plan */}
-            <div className="bg-white rounded-3xl p-8 border-2 border-blue-200 hover:shadow-xl transition-all">
+            <div className="bg-white rounded-3xl p-8 border-2 border-blue-200 hover:shadow-xl transition-all reveal hover:-translate-y-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Starter</h3>
                 <div className="mb-2">
@@ -303,7 +315,13 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-gray-500">2 GB · ~2,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["2GB Total storage", "Priority upload speed"].map(f => (
+                {[
+                  "2GB Total storage",
+                  "Priority upload speed",
+                  "Photo upload — Standard & Original quality",
+                  "Video upload — Standard quality",
+                  "AI photo sorting",
+                ].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 text-sm">{f}</span>
@@ -313,7 +331,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Popular Plan */}
-            <div className="relative bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 border-2 border-purple-600 shadow-2xl shadow-purple-500/50">
+            <div className="relative bg-gradient-to-br from-indigo-600 to-purple-600 rounded-3xl p-8 border-2 border-purple-600 shadow-2xl shadow-purple-500/50 reveal hover:-translate-y-2">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-sm font-bold whitespace-nowrap">
                 Most Popular
               </div>
@@ -325,7 +343,14 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-purple-200">5 GB · ~5,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["5GB Total storage","Highest upload priority", "No advertisements"].map(f => (
+                {[
+                  "5GB Total storage",
+                  "Highest upload priority",
+                  "Priority upload speed",
+                  "Photo upload — Standard & Original quality",
+                  "Video upload — Standard & Original quality",
+                  "AI photo sorting",
+                ].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-white flex-shrink-0 mt-0.5" />
                     <span className="text-white text-sm">{f}</span>
@@ -335,7 +360,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Pro Plan */}
-            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all">
+            <div className="bg-white rounded-3xl p-8 border-2 border-gray-200 hover:shadow-xl transition-all reveal hover:-translate-y-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">Pro</h3>
                 <div className="mb-2">
@@ -344,7 +369,15 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
                 <p className="text-sm text-gray-500">10 GB · ~10,000 photos</p>
               </div>
               <ul className="space-y-3 mb-8">
-                {["10GB Massive storage", "All Popular features", "Lifetime memory backup", "No advertisements"].map(f => (
+                {[
+                  "10GB Massive storage",
+                  "All Popular features",
+                  "Lifetime memory backup",
+                  "Priority upload speed",
+                  "Photo upload — Standard & Original quality",
+                  "Video upload — Standard & Original quality",
+                  "AI photo sorting",
+                ].map(f => (
                   <li key={f} className="flex items-start gap-3">
                     <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
                     <span className="text-gray-700 text-sm">{f}</span>
@@ -359,7 +392,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* FAQ Section */}
       <section id="faq" className="py-20 px-6 bg-white scroll-mt-20">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Frequently Asked
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Questions</span>
@@ -369,11 +402,11 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </p>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 stagger">
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl border border-purple-100 overflow-hidden"
+                className="bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl border border-purple-100 overflow-hidden reveal"
               >
                 <button
                   onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
@@ -410,7 +443,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* About Us Section */}
       <section id="about" className="py-20 px-6 bg-gradient-to-br from-indigo-600 via-purple-600 to-purple-700 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
               About Avento
             </h2>
@@ -421,8 +454,8 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
+          <div className="grid md:grid-cols-3 gap-8 mb-16 stagger">
+            <div className="text-center reveal">
               <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-lg flex items-center justify-center">
                 <Heart className="w-10 h-10 text-white" />
               </div>
@@ -432,7 +465,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center reveal">
               <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-lg flex items-center justify-center">
                 <Sparkles className="w-10 h-10 text-white" />
               </div>
@@ -442,7 +475,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
               </p>
             </div>
 
-            <div className="text-center">
+            <div className="text-center reveal">
               <div className="w-20 h-20 mx-auto mb-4 rounded-2xl bg-white/20 backdrop-blur-lg flex items-center justify-center">
                 <Users className="w-10 h-10 text-white" />
               </div>
@@ -478,7 +511,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
       {/* Contact Section */}
       <section id="contact" className="py-20 px-6 bg-gradient-to-br from-purple-50 to-indigo-50 scroll-mt-20">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 reveal">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Get In
               <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Touch</span>
@@ -490,7 +523,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
 
           <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Form */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl">
+            <div className="bg-white rounded-3xl p-8 shadow-xl reveal">
               <h3 className="text-2xl font-bold text-gray-800 mb-6">Send us a message</h3>
               <form action="https://formspree.io/f/xpqjkory" method="POST" className="space-y-6">
                 <div>
@@ -534,7 +567,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-8">
+            <div className="space-y-8 reveal">
               <div className="bg-white rounded-3xl p-8 shadow-xl">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
@@ -726,7 +759,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
 
       {/* Final CTA Section */}
       <section className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-4xl mx-auto text-center reveal">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Ready to Make Your
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent"> Events Come Alive?</span>
@@ -735,7 +768,7 @@ export default function AventoWebsite({ onBack }: AventoWebsiteProps) {
             Join thousands of users creating unforgettable memories with Avento.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="group px-10 py-5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2">
+            <button onClick={() => window.open('https://play.google.com/store/apps/details?id=com.avento.app', '_blank')} className="group px-10 py-5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold text-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all flex items-center gap-2 press">
               Download Now
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
