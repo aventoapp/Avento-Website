@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { ArrowLeft, Download, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Download, AlertCircle, ExternalLink, FileText } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
 import PartnerApprovalDialog from '../../components/PartnerApprovalDialog';
 import PartnerRejectionDialog from '../../components/PartnerRejectionDialog';
@@ -23,6 +23,7 @@ interface Partner {
         governmentIdType?: string;
         governmentIdStatus?: string;
         governmentIdDocumentUrl?: string;
+        serviceCertificateUrl?: string;
     };
     serviceIds?: string[];
     serviceAreas?: string[];
@@ -55,6 +56,7 @@ export default function PartnerDetails() {
     const [partner, setPartner] = useState<Partner | null>(null);
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState<string | null>(null);
     const [refreshKey, setRefreshKey] = useState(0);
     const [showApproveDialog, setShowApproveDialog] = useState(false);
     const [showRejectDialog, setShowRejectDialog] = useState(false);
@@ -91,6 +93,7 @@ export default function PartnerDetails() {
                 }
             } catch (error) {
                 console.error('Error fetching partner data:', error);
+                setFetchError('Unable to load this partner right now. Please try again.');
             } finally {
                 setLoading(false);
             }
@@ -99,11 +102,32 @@ export default function PartnerDetails() {
         fetchPartnerData();
     }, [isAdmin, navigate, partnerId, refreshKey]);
 
-    if (loading || !partner) {
+    if (loading) {
         return (
             <AdminLayout>
                 <div className="flex items-center justify-center py-12">
-                    <p className="text-gray-600">Loading partner details...</p>
+                    <p className="text-gray-600" role="status">Loading partner details...</p>
+                </div>
+            </AdminLayout>
+        );
+    }
+
+    if (fetchError || !partner) {
+        return (
+            <AdminLayout>
+                <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+                    <AlertCircle className="h-10 w-10 text-red-500" />
+                    <p className="text-gray-700">{fetchError || 'Partner details are unavailable.'}</p>
+                    <button
+                        onClick={() => {
+                            setFetchError(null);
+                            setLoading(true);
+                            setRefreshKey((currentKey) => currentKey + 1);
+                        }}
+                        className="rounded-lg bg-purple-600 px-4 py-2 font-medium text-white transition-colors hover:bg-purple-700"
+                    >
+                        Try Again
+                    </button>
                 </div>
             </AdminLayout>
         );
@@ -303,20 +327,16 @@ export default function PartnerDetails() {
                                         {partner.identity?.governmentIdStatus || 'NOT_SUBMITTED'}
                                     </p>
                                 </div>
-                                {partner.identity?.governmentIdDocumentUrl && (
-                                    <div>
-                                        <p className="text-sm text-gray-600 mb-2">Document</p>
-                                        <a
-                                            href={partner.identity.governmentIdDocumentUrl}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors text-sm font-medium"
-                                        >
-                                            <Download className="w-4 h-4" />
-                                            View Document
-                                        </a>
-                                    </div>
-                                )}
+                                <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                    <DocumentPreview
+                                        label="Government ID"
+                                        url={partner.identity?.governmentIdDocumentUrl}
+                                    />
+                                    <DocumentPreview
+                                        label="Business Image / Certificate"
+                                        url={partner.identity?.serviceCertificateUrl}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -413,5 +433,65 @@ export default function PartnerDetails() {
                 />
             )}
         </AdminLayout>
+    );
+}
+
+interface DocumentPreviewProps {
+    label: string;
+    url?: string;
+}
+
+function DocumentPreview({ label, url }: DocumentPreviewProps) {
+    const [imageError, setImageError] = useState(false);
+
+    return (
+        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+            <div className="mb-3 flex items-center gap-2">
+                <FileText className="h-4 w-4 text-gray-500" />
+                <p className="text-sm font-semibold text-gray-700">{label}</p>
+            </div>
+
+            {url ? (
+                <>
+                    {!imageError && (
+                        <img
+                            src={url}
+                            alt={`${label} preview`}
+                            loading="lazy"
+                            onError={() => setImageError(true)}
+                            className="mb-4 h-48 w-full rounded-lg border border-gray-200 bg-white object-contain"
+                        />
+                    )}
+                    {imageError && (
+                        <div className="mb-4 flex h-48 items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white px-4 text-center text-sm text-gray-500">
+                            Preview unavailable. Open the document to view it.
+                        </div>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                        <a
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
+                        >
+                            <ExternalLink className="h-4 w-4" />
+                            Open Document
+                        </a>
+                        <a
+                            href={url}
+                            download
+                            className="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-100"
+                        >
+                            <Download className="h-4 w-4" />
+                            Download
+                        </a>
+                    </div>
+                </>
+            ) : (
+                <div className="flex h-48 items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white px-4 text-center text-sm text-gray-500">
+                    No document uploaded
+                </div>
+            )}
+        </div>
     );
 }
