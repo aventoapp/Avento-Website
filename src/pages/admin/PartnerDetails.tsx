@@ -19,11 +19,13 @@ interface Partner {
         state?: string;
         pincode?: string;
     };
+    profilePhotoUrl?: string;
     identity?: {
         governmentIdType?: string;
         governmentIdStatus?: string;
         governmentIdDocumentUrl?: string;
         serviceCertificateUrl?: string;
+        serviceCertificateUrls?: string[];
     };
     serviceIds?: string[];
     serviceAreas?: string[];
@@ -208,6 +210,19 @@ export default function PartnerDetails() {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                     {/* Left Column - Details */}
                     <div className="lg:col-span-2 space-y-6">
+                        <div className="bg-white rounded-2xl shadow-lg p-6">
+                            <h2 className="text-2xl font-bold text-gray-900 mb-6">Profile</h2>
+                            {partner.profilePhotoUrl ? (
+                                <img
+                                    src={partner.profilePhotoUrl}
+                                    alt="Partner profile"
+                                    className="h-32 w-32 rounded-2xl border border-gray-200 object-cover"
+                                />
+                            ) : (
+                                <p className="text-gray-500">No profile image uploaded</p>
+                            )}
+                        </div>
+
                         {/* Personal Information */}
                         <div className="bg-white rounded-2xl shadow-lg p-6">
                             <h2 className="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
@@ -337,6 +352,17 @@ export default function PartnerDetails() {
                                         url={partner.identity?.serviceCertificateUrl}
                                     />
                                 </div>
+                                {partner.identity?.serviceCertificateUrls && partner.identity.serviceCertificateUrls.length > 0 && (
+                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                        {partner.identity.serviceCertificateUrls.map((url, index) => (
+                                            <DocumentPreview
+                                                key={`${url}-${index}`}
+                                                label={`Business Portfolio ${index + 1}`}
+                                                url={url}
+                                            />
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -443,6 +469,7 @@ interface DocumentPreviewProps {
 
 function DocumentPreview({ label, url }: DocumentPreviewProps) {
     const [imageError, setImageError] = useState(false);
+    const isPdf = url?.toLowerCase().split('?')[0].endsWith('.pdf');
 
     return (
         <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
@@ -453,7 +480,11 @@ function DocumentPreview({ label, url }: DocumentPreviewProps) {
 
             {url ? (
                 <>
-                    {!imageError && (
+                    {isPdf ? (
+                        <div className="mb-4 flex h-48 items-center justify-center rounded-lg border border-gray-200 bg-white">
+                            <FileText className="h-12 w-12 text-red-500" />
+                        </div>
+                    ) : !imageError && (
                         <img
                             src={url}
                             alt={`${label} preview`}
@@ -475,7 +506,7 @@ function DocumentPreview({ label, url }: DocumentPreviewProps) {
                             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-700"
                         >
                             <ExternalLink className="h-4 w-4" />
-                            Open Document
+                            {isPdf ? 'View PDF' : 'Open Document'}
                         </a>
                         <a
                             href={url}

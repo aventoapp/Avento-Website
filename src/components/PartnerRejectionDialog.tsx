@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { httpsCallable } from 'firebase/functions';
-import { functions } from '../firebase';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase';
 import { XCircle, X } from 'lucide-react';
-
-const rejectPartner = httpsCallable<
-    { partnerUid: string; reason: string },
-    { success: boolean }
->(functions, 'rejectPartner');
 
 interface PartnerRejectionDialogProps {
     partnerId: string;
@@ -35,7 +30,11 @@ export default function PartnerRejectionDialog({
         setError('');
 
         try {
-            await rejectPartner({ partnerUid: partnerId, reason: reason.trim() });
+            await updateDoc(doc(db, 'partners', partnerId), {
+                status: 'REJECTED',
+                'verification.status': 'REJECTED',
+                'verification.rejectionReason': reason.trim(),
+            });
             setError('Partner rejected successfully.');
             window.setTimeout(onSuccess, 900);
         } catch (err: any) {
