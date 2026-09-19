@@ -26,6 +26,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             label: 'Partners', path: '/admin/partners', icon: Users, subItems: [
                 { label: 'All Partners', path: '/admin/partners' },
                 { label: 'Pending', path: '/admin/partners?status=PENDING' },
+                { label: 'Approval Queue', path: '/admin/partners?status=UNDER_REVIEW' },
                 { label: 'Approved', path: '/admin/partners?status=APPROVED' },
                 { label: 'Rejected', path: '/admin/partners?status=REJECTED' },
                 { label: 'Suspended', path: '/admin/partners?status=SUSPENDED' },

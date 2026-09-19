@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { db } from '../../firebase';
-import { collection, query, getDocs, orderBy } from 'firebase/firestore';
+import { collection, query, getDocs, orderBy, where } from 'firebase/firestore';
 import { Search, Users } from 'lucide-react';
 import AdminLayout from '../../components/AdminLayout';
 
@@ -42,7 +42,10 @@ export default function PartnersList() {
         const fetchPartners = async () => {
             try {
                 const partnersRef = collection(db, 'partners');
-                const snapshot = await getDocs(query(partnersRef, orderBy('createdAt', 'desc')));
+                const partnerQuery = statusFilter === 'UNDER_REVIEW'
+                    ? query(partnersRef, where('status', '==', 'UNDER_REVIEW'))
+                    : query(partnersRef, orderBy('createdAt', 'desc'));
+                const snapshot = await getDocs(partnerQuery);
                 const data = snapshot.docs.map((doc) => ({
                     uid: doc.id,
                     ...doc.data(),
@@ -50,7 +53,7 @@ export default function PartnersList() {
                 } as Partner));
 
                 setPartners(
-                    statusFilter === 'ALL'
+                    statusFilter === 'ALL' || statusFilter === 'UNDER_REVIEW'
                         ? data
                         : data.filter((partner) => partner.status === statusFilter)
                 );
