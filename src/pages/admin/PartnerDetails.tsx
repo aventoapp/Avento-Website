@@ -137,6 +137,14 @@ export default function PartnerDetails() {
 
     const canApprove = partner.status !== 'APPROVED' && partner.status !== 'REJECTED';
     const canReject = partner.status !== 'REJECTED' && partner.status !== 'APPROVED';
+    const serviceCertificateUrls = Array.from(
+        new Set(
+            [
+                partner.identity?.serviceCertificateUrl,
+                ...(partner.identity?.serviceCertificateUrls || []),
+            ].filter((url): url is string => Boolean(url))
+        )
+    );
 
     return (
         <AdminLayout>
@@ -347,22 +355,17 @@ export default function PartnerDetails() {
                                         label="Government ID"
                                         url={partner.identity?.governmentIdDocumentUrl}
                                     />
-                                    <DocumentPreview
-                                        label="Business Image / Certificate"
-                                        url={partner.identity?.serviceCertificateUrl}
-                                    />
+                                    {serviceCertificateUrls.map((url, index) => (
+                                        <DocumentPreview
+                                            key={`${url}-${index}`}
+                                            label={`Business Image / Certificate ${index + 1} of ${serviceCertificateUrls.length}`}
+                                            url={url}
+                                        />
+                                    ))}
                                 </div>
-                                {partner.identity?.serviceCertificateUrls && partner.identity.serviceCertificateUrls.length > 0 && (
-                                    <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-                                        {partner.identity.serviceCertificateUrls.map((url, index) => (
-                                            <DocumentPreview
-                                                key={`${url}-${index}`}
-                                                label={`Business Portfolio ${index + 1}`}
-                                                url={url}
-                                            />
-                                        ))}
-                                    </div>
-                                )}
+                                <p className="text-sm text-gray-600">
+                                    Business images / certificates uploaded: <span className="font-semibold text-gray-900">{serviceCertificateUrls.length}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
